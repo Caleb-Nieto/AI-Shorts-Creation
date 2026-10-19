@@ -1,8 +1,11 @@
 {
-  "name": "AnotherVideoProject",
+  "name": "ai-shorts-creation",
   "version": "1.0.0",
-  "description": "My Remotion video",
-  "repository": {},
+  "description": "Remotion video generation project powered by AI agents",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Caleb-Nieto/AI-Shorts-Creation.git"
+  },
   "license": "UNLICENSED",
   "engines": {
     "node": "^20.19.0 || ^22.13.0 || >=24"
@@ -10,6 +13,8 @@
   "private": true,
   "dependencies": {
     "@remotion/cli": "4.0.536",
+    "@remotion/google-fonts": "4.0.536",
+    "@remotion/media": "4.0.536",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "remotion": "4.0.536"

@@ -1,0 +1,46 @@
+{
+  "fps": 60,
+  "voiceProfile": "My voice (Voicebox)",
+  "profileId": "93c085b9-0268-465e-8020-256bb9268415",
+  "instruct": "curious",
+  "acts": [
+    {
+      "act": 1,
+      "audio": "assets/gatos-oxidados/act1.wav",
+      "durationSeconds": 5.71,
+      "durationInFrames": 348,
+      "startFrame": 0,
+      "endFrame": 348,
+      "transcript": "Tu gato negro no es completamente negro. Si lo miras bajo el sol, verás que su pelaje se oxida a un tono rojizo."
+    },
+    {
+      "act": 2,
+      "audio": "assets/gatos-oxidados/act2.wav",
+      "durationSeconds": 7.3,
+      "durationInFrames": 444,
+      "startFrame": 348,
+      "endFrame": 792,
+      "transcript": "Su color depende de la eumelanina. Cuando duerme horas bajo la ventana, los rayos UV degradan ese pigmento igual que a una playera vieja."
+    },
+    {
+      "act": 3,
+      "audio": "assets/gatos-oxidados/act3.wav",
+      "durationSeconds": 8.84,
+      "durationInFrames": 536,
+      "startFrame": 792,
+      "endFrame": 1328,
+      "transcript": "Pero en 2002, en California, el científico Quinton Rogers descubrió el verdadero culpable: si a su comida le falta tirosina, su cuerpo no puede fabricar color negro."
+    },
+    {
+      "act": 4,
+      "audio": "assets/gatos-oxidados/act4.wav",
+      "durationSeconds": 5.41,
+      "durationInFrames": 331,
+      "startFrame": 1328,
+      "endFrame": 1659,
+      "transcript": "Así que no es óxido: o toma demasiado sol, o necesita más proteína. ¿Tu gato también se oxida?"
+    }
+  ],
+  "totalDurationInFrames": 1659,
+  "totalDurationSeconds": 27.65
+}

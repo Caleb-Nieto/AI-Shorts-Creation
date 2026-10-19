@@ -1,4 +1,4 @@
-# Remotion video
+# AI-Shorts-Creation
 
 <p align="center">
   <a href="https://github.com/remotion-dev/logo">

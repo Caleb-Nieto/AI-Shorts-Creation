@@ -1,0 +1,50 @@
+{
+  "themeName": "Retro Groove Editorial",
+  "palette": {
+    "backgroundPrimary": "#ECE7DE",
+    "backgroundSecondary": "#F6F2EB",
+    "textPrimary": "#1E2224",
+    "textMuted": "#656C6E",
+    "accentHighlighter": "#F6B800",
+    "accentPrimary": "#099855",
+    "accentSecondary": "#E64B2A",
+    "gridAndBorders": "#1E2224"
+  },
+  "textures": {
+    "paperGrainOpacity": 0.05,
+    "backgroundPattern": "solid",
+    "patternSpacingPx": 32,
+    "vignetteIntensity": 0.06
+  },
+  "geometry": {
+    "borderRadiusPx": 4,
+    "borderWidthPx": 2,
+    "hardShadow": "8px 8px 0px #1E2224",
+    "cutoutOutlinePx": 3,
+    "cutoutOutlineColor": "#1E2224"
+  },
+  "typography": {
+    "headingFont": "Syne",
+    "bodyFont": "Plus Jakarta Sans",
+    "monoFont": "Space Mono",
+    "headingUppercase": true,
+    "letterSpacingTight": "-0.03em"
+  },
+  "motionPresets": {
+    "snappy": {
+      "damping": 15,
+      "stiffness": 240,
+      "mass": 0.75
+    },
+    "bouncy": {
+      "damping": 10,
+      "stiffness": 190,
+      "mass": 0.9
+    },
+    "smoothCamera": {
+      "damping": 24,
+      "stiffness": 95,
+      "mass": 1.2
+    }
+  }
+}

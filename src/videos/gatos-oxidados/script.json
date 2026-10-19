@@ -1,0 +1,35 @@
+{
+  "slug": "gatos-oxidados",
+  "fps": 60,
+  "title": "¿Por qué a los gatos negros se les oxida el pelo?",
+  "acts": [
+    {
+      "act": 1,
+      "title": "La Negación Cotidiana: El Pelaje Oxidado",
+      "narration": "Tu gato negro no es completamente negro. Si lo miras bajo el sol, verás que su pelaje se oxida a un tono rojizo.",
+      "visualPlan": "Gato negro con lupa/sol que revela el cambio de color negro a marrón óxido. Sello [EFECTO ÓXIDO] y medidor de tono.",
+      "imagePromptSubject": "cute black cat sitting under sunlight with subtle reddish brown rusty fur highlights on its back, curious expression"
+    },
+    {
+      "act": 2,
+      "title": "Mecanismo 1: Rayos UV y Eumelanina",
+      "narration": "Su color depende de la eumelanina. Cuando duerme horas bajo la ventana, los rayos UV degradan ese pigmento igual que a una playera vieja.",
+      "visualPlan": "Diagrama de hebra de pelo microscópica. Ondas de luz UV bombardeando moléculas de eumelanina negra transformándolas en marrón.",
+      "imagePromptSubject": "microscopic cross section illustration of a single black cat hair shaft showing melanin pigment granules"
+    },
+    {
+      "act": 3,
+      "title": "Anclaje Empírico: Davis 2002 y la Tirosina",
+      "narration": "Pero en 2002, en California, el científico Quinton Rogers descubrió el verdadero culpable: si a su comida le falta tirosina, su cuerpo no puede fabricar color negro.",
+      "visualPlan": "Etiqueta Davis, California • 2002. Cadena molecular de tirosina hacia eumelanina con alerta roja de bloqueo nutricional.",
+      "imagePromptSubject": "vintage laboratory flask and biochemistry amino acid molecular model on scientific desk"
+    },
+    {
+      "act": 4,
+      "title": "Cierre Circular: Sol vs Nutrición",
+      "narration": "Así que no es óxido: o toma demasiado sol, o necesita más proteína. ¿Tu gato también se oxida?",
+      "visualPlan": "Comparativa dividida [SOL UV] vs [TIROSINA]. Sello [RESUELTO] y pregunta final de retención.",
+      "imagePromptSubject": "close up of a sleek curious black cat looking directly at camera with green bright eyes"
+    }
+  ]
+}
