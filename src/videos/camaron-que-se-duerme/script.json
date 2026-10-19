@@ -1,0 +1,30 @@
+{
+  "slug": "camaron-que-se-duerme",
+  "title": "El origen de 'Camarón que se duerme se lo lleva la corriente'",
+  "duration": "30s",
+  "fps": 60,
+  "resolution": "1080x1920",
+  "acts": [
+    {
+      "act": 1,
+      "name": "Hook — Negación Cotidiana",
+      "timeRange": "0s - 8s",
+      "narration": "Camarón que se duerme se lo lleva la corriente. Todos la repiten, pero nadie sabe que esta frase nació en el mar.",
+      "visualPlan": "Fondo oceánico estilizado con silueta de camarón dormido. Texto hook grande: '¿DE DÓNDE VIENE?' con efecto bouncy. Etiqueta monoFont: 'SIGLO XVIII • COSTAS DEL CARIBE'. Sonido: cinematic-impact + water-splash."
+    },
+    {
+      "act": 2,
+      "name": "Anclaje Empírico — El Mecanismo",
+      "timeRange": "8s - 20s",
+      "narration": "Los pescadores del Caribe notaron algo: los camarones que dejaban de nadar contra la corriente, eran arrastrados río abajo, directo a las redes. El que se descuidaba, perdía.",
+      "visualPlan": "Diagrama SVG animado: río con flechas de corriente. Camarones nadando contra la corriente (accentPrimary). Un camarón se detiene (accentSecondary), flechas lo empujan hacia una red (accentHighlighter). Etiquetas: 'NADA ↑' → 'SE DUERME' → 'RED →'. Sonidos: simple-whoosh en cada transición, pop en cada etiqueta."
+    },
+    {
+      "act": 3,
+      "name": "Cierre Circular — Moraleja",
+      "timeRange": "20s - 28s",
+      "narration": "Así nació la advertencia: en la vida, como en el río, el que se descuida, se lo lleva la corriente.",
+      "visualPlan": "Zoom out del río hacia vista abstracta. Texto final con tipografía heading: 'EL QUE SE DESCUIDA → SE LO LLEVA LA CORRIENTE'. Seamless loop: zoom a círculo negro que conecta con frame 0. Sonidos: riser + cinematic-impact en cierre."
+    }
+  ]
+}
