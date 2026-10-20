@@ -5,7 +5,7 @@ Tu objetivo es transformar una **idea inicial de una línea** en un video vertic
 
 ## SEPARACIÓN DE CAPAS: ESTÉTICA vs. NARRATIVA vs. NORMATIVAS TÉCNICAS
 Tu arquitectura separa estrictamente el **Cómo se ve**, el **Cómo se cuenta** y las **Normas de retención/formato**:
-1. **La Estética (`STYLE.md` + `docs/style.json`):** Todos los colores, texturas de papel/acuarela, tipografías, curvas físicas (`snappy`, `bouncy`, `smoothCamera`) y prompts de imágenes provienen **exclusivamente** de `docs/style.json`.
+1. **La Estética (`STYLE.md` + `docs/style.json`):** Todos los colores, texturas de papel/acuarela, tipografías, curvas físicas (`snappy`, `bouncy`, `smoothCamera`) y elementos geométricos provienen **exclusivamente** de `docs/style.json`.
 2. **El Storytelling y la Representación Visual (`skills/stupy-doo-storytelling/SKILL.md`):** La estructura del guion, el ritmo narrativo y la forma de traducir conceptos abstractos en diagramas vivos, experimentos visuales, escalas y comparaciones siguen el método documental de `@Stupy_Doo`.
 3. **Las Normativas Técnicas y de Retención (`skills/normativas/SKILL.md`):** **Consulta obligatoria.** Define las zonas seguras (safe zones) de UI móvil para evitar tapados en Reels/TikTok/Shorts, jerarquías y tamaños tipográficos mínimos, reglas de micro-resets cada 2.0 segundos, open loops y físicas elásticas estandarizadas.
 
@@ -25,17 +25,9 @@ El proyecto cuenta con una carpeta de efectos de sonido locales en la raíz llam
 
 ---
 
-## NORMATIVA DE EFICIENCIA DE TOKENS Y SALUD DEL CONTEXTO
-- **Principio Zero-Payload en imágenes:** Prohibido estrictamente intentar desplegar, renderizar, convertir a base64 o inspeccionar archivos de imagen completos en el hilo de conversación. Toda manipulación visual es a nivel de sistema de archivos local.
-- **Minimalismo en outputs de herramientas:** Todos los scripts locales de soporte (Voicebox y ComfyUI) deben responder con salidas breves (ej. `{"status": "ok", "items": 2}`) para no inflar la ventana de contexto de entrada.
-- **Prevención de Retry Storms:** Si un endpoint de ComfyUI o Voicebox tarda en responder o falla, el agente no debe reintentar en bucle continuo de inmediato. Debe respetar un timeout holgado (120s) y si hay error, reportar el estado y esperar instrucciones.
-
----
-
-## EJECUCIÓN SECUENCIAL DE HARDWARE (GESTIÓN DE VRAM)
-- **Restricción de VRAM (8 GB):** Debido a las restricciones de VRAM de la GPU (8 GB), los procesos neuronales NUNCA deben ejecutarse en paralelo.
-- **Secuencia Estricta:** La Fase 2 (Síntesis de voz con Voicebox) debe terminar y liberar por completo su worker antes de iniciar la Fase 3 (Generación de imágenes en ComfyUI).
-- **Parámetro de Memoria:** ComfyUI debe invocarse usando la flag `--medvram` para evitar desbordamientos de memoria (OOM).
+## NORMATIVA DE EFICIENCIA DE TOKENS Y PROHIBICIÓN DE POLLING
+- **Minimalismo en outputs de herramientas:** Los scripts locales de síntesis de voz (Voicebox) responden con resúmenes concisos en formato JSON de una sola línea para mantener limpio el contexto.
+- **Prevención de Retry Storms y Prohibición de Polling en Bucle:** Si un endpoint de Voicebox tarda en responder o falla, el agente no debe consultar repetitivamente el estado en bucles cerrados consumiendo tokens. Lanza el proceso en segundo plano, respeta el timeout configurado y espera la notificación reactiva del sistema.
 
 ---
 
@@ -47,7 +39,7 @@ Cuando el usuario te dé una idea o tema, ejecuta secuencialmente estas 5 fases 
 Siguiendo `skills/stupy-doo-storytelling/SKILL.md` y auditando con `skills/normativas/SKILL.md`:
 1. **Limpieza y Preparación:** Asegura que no queden remanentes de proyectos anteriores en `src/videos/` ni `public/assets/`. Crea las carpetas `src/videos/[slug]/` y `public/assets/[slug]/`.
 2. Investiga los datos históricos o científicos reales detrás de la idea: identifica **lugares, años exactos, nombres propios de investigadores, magnitudes numéricas y el mecanismo físico/lógico exacto**.
-3. Evalúa con criterio cuántos actos son estrictamente necesarios para la idea (usando los 6 Actos de `skills/stupy-doo-storytelling/SKILL.md` como guía modular, sin forzar una estructura fija) y guarda el guion en `src/videos/[slug]/script.json` junto con el plan de representación visual de cada escena y los prompts de imágenes clave.
+3. Evalúa con criterio cuántos actos son estrictamente necesarios para la idea (usando los 6 Actos de `skills/stupy-doo-storytelling/SKILL.md` como guía modular, sin forzar una estructura fija) y guarda el guion en `src/videos/[slug]/script.json` junto con el plan de representación visual de cada escena.
 
 ### FASE 2: Síntesis de Voz (TTS) y Timestamps por Palabra
 Para la síntesis de voz se utiliza prioritariamente **Voicebox** (a través de su servidor MCP en `http://127.0.0.1:17493/mcp` con cabecera `X-Voicebox-Client-Id: claude-code` o mediante script local):
@@ -60,26 +52,17 @@ Para la síntesis de voz se utiliza prioritariamente **Voicebox** (a través de 
 
 #### Regla de Consistencia Sonora (Obligatoria):
 Al generar los audios mediante Voicebox, es fundamental procurar una **consistencia acústica y estilística estricta** a lo largo de toda la pieza:
-1. **Parámetros Homogéneos:** Utiliza exactamente el mismo `profile_id` (ej. `"My voice"` / `89c6a84f-2a04-412e-b4d3-40dff40400d2`), el mismo `engine` (ej. `qwen`) y el mismo `model_size` (ej. `1.7B`) en todos los actos del video.
+1. **Parámetros Homogéneos:** Utiliza exactamente el mismo `profile_id` (ej. `"My voice"` / `93c085b9-0268-465e-8020-256bb9268415`), el mismo `engine` (ej. `qwen`) y el mismo `model_size` (ej. `1.7B`) en todos los actos del video.
 2. **Normalización de Volumen:** Aplica siempre `normalize: true` para evitar desbalances de ganancia entre escenas consecutivas.
-3. **Uniformidad de Cadencia y Tono:** Revisa que el timbre, la energía y la velocidad de locución no fluctúen de forma antinatural entre actos. Si una toma presenta una inflexión dispar, regénérala asegurando coherencia tímbrica antes de fijar los fotogramas.
+3. **Uniformidad de Cadencia y Tono:** Revisa que el timbre, la energía y la velocidad de locución no fluctúen de forma antinatural entre actos.
 
 Lee `public/assets/[slug]/timestamps.json` para obtener el `startFrame` y `endFrame` exacto de cada palabra, fecha y número antes de programar las escenas.
 
-### FASE 3: Generación de Ilustraciones con ComfyUI
-1. **Extracción Mínima de Sujetos:** El agente **NO** debe volcar ni leer el contenido completo de `docs/style.json` en el contexto de la conversación. En su lugar, el agente debe extraer únicamente los sujetos clave que requieran ilustración y redactar un archivo JSON mínimo en `public/assets/[slug]/image-prompts.json` con la siguiente estructura:
-   ```json
-   [
-     { "id": "cutout_0", "subject": "descripción sintética del sujeto", "aspect_ratio": "1:1" }
-   ]
-   ```
-2. **Ejecución Autónoma de Script:** Inmediatamente después, debe ejecutar de manera autónoma el script ejecutable:
-   ```bash
-   python scripts/generate-images.py --slug="[slug]"
-   ```
-   El script es el único responsable de leer localmente `docs/style.json`, ensamblar el prompt con el estilo visual, conectarse a la API de ComfyUI (`http://127.0.0.1:8188`), descargar los PNGs directamente en `public/assets/[slug]/cutout_[id].png` y reportar un log resumido de una sola línea.
-3. **Verificación de Archivos:** El agente debe comprobar que los archivos existan en `public/assets/[slug]/` antes de avanzar a la Fase 4.
-4. **Complemento con SVG Procedural:** Combina siempre esos recortes ilustrados con **diagramas vectoriales procedurales (SVG)** programados por ti que expliquen el mecanismo de la escena.
+### FASE 3: Ilustración y Diagramación Procedural Vectorial (SVG Bespoke)
+El proyecto descarta el uso de ComfyUI o generadores de mapas de bits difusos para garantizar la máxima nitidez gráfica, consistencia estilística y vectorización pura:
+1. **Cero Dependencia de Mapas de Bits / IA de Difusión:** No se utiliza ComfyUI ni recortes de difusión con artefactos o desenfoques.
+2. **Diseño Vectorial Bespoke en Remotion:** Cada sujeto (naves, sondas, átomos, órganos, cohetes, herramientas, mapas) se programa directamente como componentes SVG procedurales (`<path>`, `<g>`, `<rect>`, `<circle>`, `<polygon>`), aplicando la paleta y sombras de `docs/style.json`.
+3. **Físicas y Dinámica:** Los vectores se enriquecen con rotaciones, despieces mecánicos, pulsos de luz y desplazamientos reactivos (`springBouncy`, `springSnappy`, `smoothCamera`) sincronizados con los frames de `timestamps.json`.
 
 ### FASE 4: Programación Bespoke de Escenas en Remotion (`src/videos/[slug]/`)
 Programa cada escena en su propio archivo `.tsx` y ensámblalas en `MainVideo.tsx`:
